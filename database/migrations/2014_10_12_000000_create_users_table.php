@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Kolekta\User;
 
 class CreateUsersTable extends Migration
 {
@@ -18,9 +19,13 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->integer('category', false)->unsigned();
+            $table->foreign('category')->references('id')->on('categories');
             $table->rememberToken();
             $table->timestamps();
         });
+
+        User::create(['name' => 'Admin', 'username' => 'admin', 'password' => bcrypt('admin'), 'email' => 'admin@vendumedia.com', 'category' => 1]);
     }
 
     /**
