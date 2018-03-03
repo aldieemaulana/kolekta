@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Kolekta\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
