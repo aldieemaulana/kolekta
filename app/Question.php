@@ -13,7 +13,7 @@ class Question extends Model
     ];
 
     public function answers() {
-        return $this->hasMany("Kolekta\Answer", "question", "id");
+        return $this->hasMany("Kolekta\Answer", "question", "id")->orderBy('position');
     }
 
     public function typed() {
