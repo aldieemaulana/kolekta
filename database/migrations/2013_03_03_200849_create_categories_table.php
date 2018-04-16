@@ -21,11 +21,11 @@ class CreateCategoriesTable extends Migration
             $table->timestamps();
         });
 
-        Category::create(['name' => 'admin', 'public' => false]);
-        Category::create(['name' => 'customer', 'public' => true]);
-        Category::create(['name' => 'consultant', 'public' => true]);
-        Category::create(['name' => 'surveyor', 'public' => true]);
-        Category::create(['name' => 'responder', 'public' => true]);
+        Category::create(['name' => 'Admin', 'public' => false]);
+        Category::create(['name' => 'Customer', 'public' => true]);
+        Category::create(['name' => 'Consultant', 'public' => true]);
+        Category::create(['name' => 'Surveyor', 'public' => true]);
+        Category::create(['name' => 'Responder', 'public' => true]);
     }
 
     /**

@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'category'
+        'name', 'email', 'password', 'category', 'verified'
     ];
 
     /**
@@ -27,8 +27,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function category() {
-        return $this->hasOne("App\Category", "id", "category");
+    public function categoryDetail() {
+        return $this->hasOne("Kolekta\Category", "id", "category");
     }
 
 }

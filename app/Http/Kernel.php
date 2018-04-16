@@ -58,5 +58,6 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \Kolekta\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'requiredParameterJson' => \Kolekta\Http\Middleware\RequiredParameterJson::class,
     ];
 }

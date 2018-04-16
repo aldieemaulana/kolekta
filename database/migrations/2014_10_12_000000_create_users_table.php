@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Migrations\Migration;
 use Kolekta\User;
 
@@ -25,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-        User::create(['name' => 'Admin', 'username' => 'admin', 'password' => bcrypt('admin'), 'email' => 'admin@vendumedia.com', 'category' => 1]);
+        User::create(['name' => 'Admin', 'username' => 'admin', 'password' => Hash::make('admin'), 'email' => 'admin@vendumedia.com', 'category' => 1]);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Kolekta\Http\Controllers\Auth;
 
+use Kolekta\Category;
 use Kolekta\User;
 use Kolekta\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -67,6 +68,16 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'category' => $data["category"],
         ]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showRegistrationForm()
+    {
+        $categories = Category::wherePublic(true)->pluck('name', 'id');
+        return view('templates.auth.pages.signup', compact('categories'));
     }
 }
