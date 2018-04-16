@@ -12,7 +12,7 @@ class Answer extends Model
         "position", "question", "answer", "point", "correct"
     ];
 
-    public function logic() {
+    public function logics() {
         return $this->hasOne("Kolekta\Logic", "answer", "id");
     }
 }

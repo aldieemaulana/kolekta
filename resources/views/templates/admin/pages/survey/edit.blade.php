@@ -47,6 +47,9 @@
                                         {{ $page->name }}
                                     </h3>
                                 </div>
+                                <div class="card-block no-padding card-question p-l-15 p-r-15 p-t-15 p-b-20 card-button">
+                                    <textarea id="activeValue" class="form-control" style="min-height: 100px"></textarea>
+                                </div>
                                 @foreach($page->questions as $question)
                                     <div class="card-block no-padding card-question p-l-15 p-r-15 p-t-5 p-b-5 card-button" id="question{{ $page->id."0X0".$question->id }}">
                                         <a class="btn btn-info btn-edit btn-xs" onclick="editQuestion('question{{ $page->id."0X0".$question->id }}', {{ $question->id }})">EDIT</a>
@@ -70,6 +73,7 @@
                                         </div>
                                     </div>
                                 @endforeach
+
                             @endforeach
                         </div>
                     </div>
@@ -128,9 +132,11 @@
 
             </div>
         </div>
+
+        <input type="hidden" id="activeForm"/>
+        <input type="hidden" id="activeCurrent"/>
     </div>
 
-    <input type="hidden" id="activeForm"/>
 
 
 @endsection
@@ -211,10 +217,29 @@
 
         function appendAnswer(data) {
             var answer = "";
-            var position = 0;
+            var positiond = 0;
+
+            var current = [];
+            var answers = [];
+
             $.each(data.answers, function(i, value) {
+                var logics = [];
+
+                logics.push({
+                    "skip_to": value.logics.skip_to,
+                    "skip_to_question": value.logics.skip_to_question
+                });
+
+                answers.push({
+                    "answer": value.answer,
+                    "position": value.position,
+                    "point": value.point,
+                    "correct": value.correct,
+                    "logic": logics
+                });
+
                 if(data.typed.name == "radio" || data.typed.name == "checkbox") {
-                    answer += '<div class="row m-b-10 DO-'+ position++ +'" id="X'+ value.id +'DO">\n' +
+                    answer += '<div class="row m-b-10 DO-'+ positiond++ +'" id="X'+ value.id +'DO">\n' +
                         '<div class="col-10 no-padding">\n' +
                         '    <div class="input-group transparent">\n' +
                         '        <span class="input-group-addon">\n' +
@@ -231,7 +256,7 @@
                         '            </button>\n' +
                         '        </div>\n' +
                         '        <div class="btn-group col-6 p-0">\n' +
-                        '            <button type="button" class="btn btn-default w-100" onclick="addAnswer(\'X'+ value.id +'DO\', '+ position
+                        '            <button type="button" class="btn btn-default w-100" onclick="addAnswer(\'X'+ value.id +'DO\', '+ value.position
                         +',\''+data.typed.name+'\')">\n' +
                         '                <span class="fs-11 font-montserrat text-uppercase"><i class="fa fa-plus"></i></span>\n' +
                         '            </button>\n' +
@@ -242,12 +267,27 @@
                 }
             });
 
+            current.push({
+                "page": data.page,
+                "position": data.position,
+                "unique": data.unique,
+                "question": data.question,
+                "type": data.type,
+                "add_other": data.add_other,
+                "required": data.required,
+                "answer": answers
+            });
+
+            $('#activeValue').text(JSON.stringify(current));
+            $('#activeCurrent').text(JSON.stringify(current));
+
             $('#answerList').html(answer);
         }
 
         function appendQuestion(question, data) {
             var target = document.getElementById('questionDynamic');
             var wrap = document.createElement('div');
+
             wrap.appendChild(target.cloneNode(true));
             $('#'+question).html(wrap.innerHTML);
             $('#'+question).addClass("p-l-15 p-r-15 p-t-5 p-b-5");
@@ -290,7 +330,7 @@
                 '        <span class="input-group-addon">\n' +
                 '            <input type="'+typed+'" disabled>\n' +
                 '        </span>\n' +
-                '        <input type="text" class="form-control">\n' +
+                '        <input type="text" class="form-control" onchange="valueAnswer(this.value, '+position+')">\n' +
                 '    </div>\n' +
                 '</div>\n' +
                 '<div class="col-2 text-right">\n' +
@@ -312,20 +352,46 @@
         }
 
         function removeAnswer(answer, id) {
-            $.ajax({
-                type:'POST',
-                url:'{{ url("api/v1/answer") }}/' + id + '/delete',
-                contentType: 'application/json; charset=utf-8',
-                mimeType:"multipart/form-data",
-                cache: false,
-                processData:false,
-                success: function(data, textStatus, jqXHR) {
-                    $("#"+answer).remove();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.log("failed to get question detail");
-                }
-            });
+            if(id > 0){
+                $.ajax({
+                    type:'POST',
+                    url:'{{ url("api/v1/answer") }}/' + id + '/delete',
+                    contentType: 'application/json; charset=utf-8',
+                    mimeType:"multipart/form-data",
+                    cache: false,
+                    processData:false,
+                    success: function(data, textStatus, jqXHR) {
+                        $("#"+answer).remove();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log("failed to get question detail");
+                    }
+                });
+            }else{
+                $("#"+answer).remove();
+            }
+        }
+
+        function valueAnswer(val, position) {
+            var current = JSON.parse($("#activeValue").text());
+            current = current[0];
+            var answers = current.answer;
+
+            var logics = {
+                "skip_to": null,
+                "skip_to_question": null
+            };
+
+            var answer = {
+                "answer": val,
+                "position": position,
+                "point": 0,
+                "correct": 0,
+                "logic": logics
+            };
+
+            answers.splice(position, 0, answer);
+            console.log(answers);
         }
 
     </script>

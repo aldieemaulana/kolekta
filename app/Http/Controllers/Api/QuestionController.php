@@ -14,7 +14,7 @@ class QuestionController extends Controller
      */
     public function getDetail($id)
     {
-        $information = Question::with('typed', 'answers')->findOrFail($id);
+        $information = Question::with('typed', 'answers', 'answers.logics')->findOrFail($id);
 
         $data['message'] = "Success";
         $data['status'] = 200;

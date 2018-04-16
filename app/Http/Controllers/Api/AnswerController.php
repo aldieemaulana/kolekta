@@ -16,7 +16,7 @@ class AnswerController extends Controller
     public function removeAnswer($id)
     {
         $information = Answer::findOrFail($id);
-        $information->logic()->delete();
+        $information->logics()->delete();
         $information->delete();
 
 
