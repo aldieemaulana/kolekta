@@ -41,34 +41,34 @@
 
                         <div class="card card-default padding-25">
                             @foreach($survey->pages as $page)
-                            <div class="card-block no-padding bg-primary p-l-15 p-r-15 p-t-5 p-b-5 card-button">
-                                <a class="btn btn-info btn-edit btn-xs">EDIT</a>
-                                <h3 class="fs-16 all-caps font-weight-normal no-margin text-white">
-                                    {{ $page->name }}
-                                </h3>
-                            </div>
-                                @foreach($page->questions as $question)
-                                <div class="card-block no-padding card-question p-l-15 p-r-15 p-t-5 p-b-5 card-button" id="question{{ $page->id."0X0".$question->id }}">
-                                    <a class="btn btn-info btn-edit btn-xs" onclick="editQuestion('question{{ $page->id."0X0".$question->id }}', {{ $question->id }})">EDIT</a>
-                                    <h4 class="question">{{ $question->position . "." . $question->question}}</h4>
-                                    <div class="answer">
-                                            @if($question->type == 1)
-<div class="checkbox check-info">
-@foreach($question->answers as $answer)
-    <input type="checkbox" value="{{ $answer->id }}" name="{{ $question->id }}" id="{{ $answer->id }}">
-    <label for="{{ $answer->id }}">{{ $answer->answer }}</label>
-@endforeach
-</div>
-                                            @elseif($question->type == 2)
-<div class="radio radio-info">
-@foreach($question->answers as $answer)
-    <input type="radio" value="{{ $answer->id }}" name="{{ $question->id }}" id="{{ $answer->id }}">
-    <label for="{{ $answer->id }}">{{ $answer->answer }}</label>
-@endforeach
-</div>
-                                            @endif
-                                    </div>
+                                <div class="card-block no-padding bg-primary p-l-15 p-r-15 p-t-5 p-b-5 card-button">
+                                    <a class="btn btn-info btn-edit btn-xs">EDIT</a>
+                                    <h3 class="fs-16 all-caps font-weight-normal no-margin text-white">
+                                        {{ $page->name }}
+                                    </h3>
                                 </div>
+                                @foreach($page->questions as $question)
+                                    <div class="card-block no-padding card-question p-l-15 p-r-15 p-t-5 p-b-5 card-button" id="question{{ $page->id."0X0".$question->id }}">
+                                        <a class="btn btn-info btn-edit btn-xs" onclick="editQuestion('question{{ $page->id."0X0".$question->id }}', {{ $question->id }})">EDIT</a>
+                                        <h4 class="question">{{ $question->position . "." . $question->question}}</h4>
+                                        <div class="answer">
+                                            @if($question->type == 1)
+                                                <div class="checkbox check-info">
+                                                    @foreach($question->answers as $answer)
+                                                        <input type="checkbox" value="{{ $answer->id }}" name="{{ $question->id }}" id="{{ $answer->id }}">
+                                                        <label for="{{ $answer->id }}">{{ $answer->answer }}</label>
+                                                    @endforeach
+                                                </div>
+                                            @elseif($question->type == 2)
+                                                <div class="radio radio-info">
+                                                    @foreach($question->answers as $answer)
+                                                        <input type="radio" value="{{ $answer->id }}" name="{{ $question->id }}" id="{{ $answer->id }}">
+                                                        <label for="{{ $answer->id }}">{{ $answer->answer }}</label>
+                                                    @endforeach
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
                                 @endforeach
                             @endforeach
                         </div>
@@ -138,7 +138,9 @@
 
 @push("script")
     <script>
-        $tab = "";
+        var tab = "";
+        var answerIndex = 0;
+
         function editQuestion(question, id) {
             getQuestion(id, true);
 
@@ -209,9 +211,10 @@
 
         function appendAnswer(data) {
             var answer = "";
+            var position = 0;
             $.each(data.answers, function(i, value) {
                 if(data.typed.name == "radio" || data.typed.name == "checkbox") {
-                    answer += '<div class="row m-b-10" id="X'+ value.id +'DO">\n' +
+                    answer += '<div class="row m-b-10 DO-'+ position++ +'" id="X'+ value.id +'DO">\n' +
                         '<div class="col-10 no-padding">\n' +
                         '    <div class="input-group transparent">\n' +
                         '        <span class="input-group-addon">\n' +
@@ -223,12 +226,13 @@
                         '<div class="col-2 text-right">\n' +
                         '    <div class="btn-group btn-group-justified row w-100">\n' +
                         '        <div class="btn-group col-6 p-0">\n' +
-                        '            <button type="button" class="btn btn-default w-100">\n' +
-                        '                <span class="fs-11 font-montserrat text-uppercase" onclick="removeAnswer(\'X'+ value.id +'DO\','+ value.id +')"><i class="fa fa-minus"></i></span>\n' +
+                        '            <button type="button" class="btn btn-default w-100" onclick="removeAnswer(\'X'+ value.id +'DO\','+ value.id +')">\n' +
+                        '                <span class="fs-11 font-montserrat text-uppercase"><i class="fa fa-minus"></i></span>\n' +
                         '            </button>\n' +
                         '        </div>\n' +
                         '        <div class="btn-group col-6 p-0">\n' +
-                        '            <button type="button" class="btn btn-default w-100">\n' +
+                        '            <button type="button" class="btn btn-default w-100" onclick="addAnswer(\'X'+ value.id +'DO\', '+ position
+                        +',\''+data.typed.name+'\')">\n' +
                         '                <span class="fs-11 font-montserrat text-uppercase"><i class="fa fa-plus"></i></span>\n' +
                         '            </button>\n' +
                         '        </div>\n' +
@@ -278,8 +282,33 @@
             $('#questionAnswer').attr('id', "");
         }
 
-        function addAnswer(answer, position) {
-            
+        function addAnswer(answer, position, typed) {
+            answerIndex++;
+            var row = '<div class="row m-b-10" id="X'+ answerIndex +'DOED">\n' +
+                '<div class="col-10 no-padding">\n' +
+                '    <div class="input-group transparent">\n' +
+                '        <span class="input-group-addon">\n' +
+                '            <input type="'+typed+'" disabled>\n' +
+                '        </span>\n' +
+                '        <input type="text" class="form-control">\n' +
+                '    </div>\n' +
+                '</div>\n' +
+                '<div class="col-2 text-right">\n' +
+                '    <div class="btn-group btn-group-justified row w-100">\n' +
+                '        <div class="btn-group col-6 p-0">\n' +
+                '            <button type="button" class="btn btn-default w-100" onclick="removeAnswer(\'X'+ answerIndex +'DOED\', 0)">\n' +
+                '                <span class="fs-11 font-montserrat text-uppercase"><i class="fa fa-minus"></i></span>\n' +
+                '            </button>\n' +
+                '        </div>\n' +
+                '        <div class="btn-group col-6 p-0">\n' +
+                '            <button type="button" class="btn btn-default w-100" onclick="addAnswer(\'X'+ answerIndex +'DOED\', 0, \''+typed+'\')">\n' +
+                '                <span class="fs-11 font-montserrat text-uppercase"><i class="fa fa-plus"></i></span>\n' +
+                '            </button>\n' +
+                '        </div>\n' +
+                '    </div>\n' +
+                '</div>\n' +
+                '</div>';
+            $(row).insertAfter("#"+answer);
         }
 
         function removeAnswer(answer, id) {
