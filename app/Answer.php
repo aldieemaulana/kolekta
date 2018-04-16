@@ -9,7 +9,7 @@ class Answer extends Model
     protected $table = 'answers';
     protected $primaryKey = 'id';
     protected $fillable = [
-        "question", "answer", "point", "correct"
+        "position", "question", "answer", "point", "correct"
     ];
 
     public function logic() {
