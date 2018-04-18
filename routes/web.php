@@ -34,3 +34,4 @@ Route::get('/survey', 'SurveyController@index')->name('survey.index');
 Route::post('/survey/create/store', 'SurveyController@store')->name('survey.store');
 Route::get('/survey/{id}/edit', 'SurveyController@edit')->name('survey.edit');
 
+Route::get('/consultant', 'ConsultantConstroller@index')->name('consultant.index');
