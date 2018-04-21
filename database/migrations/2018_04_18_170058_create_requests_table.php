@@ -21,7 +21,8 @@ class CreateRequestsTable extends Migration
             $table->integer('survey_category', false)->unsigned();
             $table->foreign('survey_category')->references('id')->on('survey_categories');
             $table->text('descriptions');
-            $table->string('type');
+            $table->enum('type', ['public', 'targeting']);
+            $table->enum('status', ['pending', 'doing', 'done']);
             $table->timestamps();
         });
     }
