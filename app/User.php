@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Kolekta;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'category', 'verified'
     ];
 
     /**
@@ -26,4 +26,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function categoryDetail() {
+        return $this->hasOne("Kolekta\Category", "id", "category");
+    }
+
 }

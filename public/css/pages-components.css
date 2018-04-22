@@ -1,0 +1,241 @@
+.show > .dropdown-menu {
+    margin-top: 8px;
+}
+
+.notification-panel {
+    margin-top: -10px;
+}
+
+.search-nav {
+    background: rgba(255,255,255, .11) !important;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.input-search {
+    background: transparent !important;
+    color: #fff !important;
+    border: none !important;
+    margin-left: -25px;
+}
+
+.font-light {
+    font-weight: 300 !important;
+}
+
+.btn-top {
+    float: left;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+    margin-top: -20px;
+}
+
+.survey-list {
+    min-height: 130px;
+}
+
+.survey-action {
+    display: none;
+}
+
+.survey-list:hover {
+    border-color: #07c25f !important;
+}
+
+.survey-list:hover .survey-description {
+    display: none;
+}
+
+.survey-list:hover .survey-action {
+    display: inline;
+}
+
+.progress-label {
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-top: 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 10px;
+}
+
+.progress-label h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.no-line {
+    line-height: 13px;
+}
+
+.widget-bottom {
+    min-height: 300px;
+}
+
+.radio.radio-primary {
+    padding: 0 5px;
+    padding-top: 5px;
+}
+
+.radio.radio-primary:hover {
+    background: rgba(10,10,10,.039);
+}
+
+.table.table-default tr:first-child td {
+    text-transform: uppercase;
+    background: #6D777E;
+    color: #FFF;
+    font-size: 12px;
+    border: none;
+    font-weight: 600;
+    padding: 10px 8px;
+    height: 35px;
+}
+
+.dropdown-menu.dropdown-custom> .dropdown-item:first-child {
+    padding-top: 0;
+}
+.dropdown-menu.dropdown-custom > li,
+.dropdown-menu.dropdown-custom> .dropdown-item {
+    line-height: 35px;
+    background: #fff;
+    color: #101001;
+    padding: 0 15px;
+    border-radius: 3px;
+    font-size: 12px;
+    display: block;
+    clear: both;
+    white-space: nowrap;
+    text-align: left;
+}
+.dropdown-menu.dropdown-custom> .dropdown-item:hover {
+    background: #f2f2f2;
+}
+.dropdown-menu.dropdown-custom> .dropdown-item h3 {
+    font-size: 12px;
+    float: right;
+    position: absolute;
+    right: 15px;
+    margin-top: 0;
+}
+.dropdown-default .btn.dropdown-toggle.dropdown-custom {
+    font-size: 13px !important;
+    padding-left: 15px !important;
+}
+
+.panel-whitesmoke {
+    background: #edeeee;
+    padding: 15px;
+}
+
+.secondary-sidebar .sub-menu.p-l-2 {
+    padding-left: 2px;
+}
+
+.menu-bar-al a.title-bar {
+    border-bottom: 1px solid #DDD;
+    padding-bottom: 5px;
+}
+
+.menu-bar-al ul.sub-menu {
+    margin-top: -2px !important;
+    margin-left: 0 !important;
+    padding-top: 0 !important;
+    padding-left: 0 !important;
+    border-top: 1px solid #DDD;
+}
+.menu-bar-al ul.sub-menu li {
+    padding-left: 0 !important;
+    margin: 0 !important;
+}
+.menu-bar-al ul.sub-menu li a {
+    background: #fbfbfb;
+    border-bottom: 1px solid #ededed;
+    padding: 8px 25px;
+    padding-left: 14px;
+    font-weight: 300;
+    color: #000;
+}
+a.text-link {
+    cursor: pointer
+}
+
+.circle-notification {
+    width:50px;
+    height:50px;
+    border-radius:100%;
+    display: inline-block;
+    text-align:center;
+    font-size:25px;
+    padding: 8px;
+    background: #fff
+}
+
+.background-transparent {
+    background: none !important;
+    border: none !important;
+}
+
+.card-button .btn-edit {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+    color: #FFF !important;
+    font-weight: 600 !important;
+    display: none;
+    float: right !important;
+    margin-top: 4px;
+}
+
+.card-button:hover .btn-edit {
+    display: block;
+}
+
+.card-question.card-button {
+    border: 1px solid #ededed;
+    border-bottom: 0;
+    color: #000 !important;
+}
+
+.card .card-button:last-child {
+    border-bottom: 1px solid #ededed;
+}
+
+.card .card-button .question {
+    font-size: 16px !important;
+}
+
+.card .card-button .answer * {
+    font-size: 13px !important;
+}
+
+.card .card-button .answer textarea.form-control.text {
+    max-height: 250px;
+    min-height: 150px;
+}
+
+.card .card-button .answer .form-control.text {
+    margin-bottom: 20px;
+}
+
+.card-question.edit {
+    background: #f2f2f2;
+}
+
+.card-question.edit .btn-flat {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+    font-weight: 600 !important;
+}
+
+.pace .pace-activity {
+    top: 60px !important;
+}
+
+.pace .pace-progress {
+    background: rgb(242, 242, 242) !important;
+    height: 2px !important;;
+}

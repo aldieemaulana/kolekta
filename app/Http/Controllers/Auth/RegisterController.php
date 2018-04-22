@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Kolekta\Http\Controllers\Auth;
 
-use App\User;
-use App\Http\Controllers\Controller;
+use Kolekta\Category;
+use Kolekta\User;
+use Kolekta\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -59,7 +60,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return \App\User
+     * @return \Kolekta\User
      */
     protected function create(array $data)
     {
@@ -67,6 +68,16 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'category' => $data["category"],
         ]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showRegistrationForm()
+    {
+        $categories = Category::wherePublic(true)->pluck('name', 'id');
+        return view('templates.auth.pages.signup', compact('categories'));
     }
 }
