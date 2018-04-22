@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('category', false)->unsigned();
@@ -26,7 +27,13 @@ class CreateUsersTable extends Migration
             $table->timestamps();
         });
 
-        User::create(['name' => 'Admin', 'username' => 'admin', 'password' => Hash::make('admin'), 'email' => 'admin@vendumedia.com', 'category' => 1]);
+        User::insert([
+            ['name' => 'Admin', 'username' => 'admin', 'password' => Hash::make('admin'), 'email' => 'admin@vendumedia.com', 'category' => 1],
+            ['name' => 'Customer', 'username' => 'customer', 'password' => Hash::make('customer'), 'email' => 'customer@vendumedia.com', 'category' => 2],
+            ['name' => 'Consultant', 'username' => 'consultant', 'password' => Hash::make('consultant'), 'email' => 'consultant@vendumedia.com', 'category' => 3],
+            ['name' => 'Surveyor', 'username' => 'surveyor', 'password' => Hash::make('surveyor'), 'email' => 'surveyor@vendumedia.com', 'category' => 4]
+            ]
+        );
     }
 
     /**

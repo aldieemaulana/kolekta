@@ -14,4 +14,7 @@
     <li class="{{ (Request::is('responder*')) ? 'active' : ''}}">
         <a href="{{ url('responder') }}">Responder</a>
     </li>
+    <li class="{{ (Request::is('consultant*')) ? 'active' : ''}}">
+        <a href="{{ url('consultant') }}">Consultant</a>
+    </li>
 </ul>
