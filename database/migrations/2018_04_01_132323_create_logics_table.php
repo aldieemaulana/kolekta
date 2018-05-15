@@ -21,6 +21,7 @@ class CreateLogicsTable extends Migration
             $table->foreign('skip_to')->references('id')->on('pages');
             $table->integer('skip_to_question', false)->unsigned();
             $table->foreign('skip_to_question')->references('id')->on('questions');
+            $table->enum('unique_state', ['exit','disqualification'])->nullable();
             $table->timestamps();
         });
     }

@@ -30,7 +30,7 @@ class Survey extends Model
     ];
 
     public function pages() {
-        return $this->hasMany("Kolekta\Paged", "survey", "id");
+        return $this->hasMany("Kolekta\Paged", "survey", "id")->orderBy('position');
     }
 
 }

@@ -19,4 +19,8 @@ class Question extends Model
     public function typed() {
         return $this->hasOne("Kolekta\Type", "id", "type");
     }
+
+    public function paged() {
+        return $this->hasOne("Kolekta\Paged", "id", "page");
+    }
 }

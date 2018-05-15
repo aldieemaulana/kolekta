@@ -12731,6 +12731,9 @@ Main components
 .m-b-10 {
   margin-bottom: 10px;
 }
+.m-b-min-10 {
+  margin-bottom: -10px !important;
+}
 .m-t-min-10 {
   margin-top: -10px !important;
 }

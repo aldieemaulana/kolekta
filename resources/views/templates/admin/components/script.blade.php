@@ -37,6 +37,7 @@
 <script src="{{ url('plugins/jquery-datatable/extensions/Bootstrap/jquery-datatable-bootstrap.js') }}" type="text/javascript"></script>
 <script src="{{ url('plugins/datatables-responsive/js/datatables.responsive.js') }}" type="text/javascript"></script>
 <script src="{{ url('plugins/datatables-responsive/js/lodash.min.js') }}" type="text/javascript"></script>
+<script src="{{ url('plugins/jquery-nestable/jquery.nestable.js') }}" type="text/javascript"></script>
 <script src="{{ url('js/pages.min.js') }}" type="text/javascript"></script>
 <script src="{{ url('js/dashboard.js') }}" type="text/javascript"></script>
 <script src="{{ url('js/scripts.js') }}" type="text/javascript"></script>

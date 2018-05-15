@@ -15,4 +15,8 @@ class Answer extends Model
     public function logics() {
         return $this->hasOne("Kolekta\Logic", "answer", "id");
     }
+
+    public function question() {
+        return $this->hasOne("Kolekta\Question", "question", "id");
+    }
 }

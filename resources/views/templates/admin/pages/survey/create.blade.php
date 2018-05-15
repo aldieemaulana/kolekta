@@ -166,7 +166,7 @@
                                                 </div>
                                                 <div class="col-5 no-padding fs-13">
                                                     <select class="select2 full-width" data-init-plugin="select2">
-                                                        <option value=""></option>
+                                                        <option value="">-- Choose page first --</option>
                                                         <option value="Web-safe">Top Of Page</option>
                                                         <option value="Helvetica">2. Which of the following mobile or  ...</option>
                                                         <option value="SegeoUI">3. How many working mobile or cell ...</option>
