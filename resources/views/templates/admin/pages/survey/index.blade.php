@@ -53,9 +53,9 @@
                                     <td width="100px" class="text-center">Remove</td>
                                 </tr>
                                 @foreach($surveys as $survey)
-                                <tr>
+                                <tr id="selecRow{{$survey->id}}">
                                     <td class="p-l-20 p-t-25 p-r-10 fs-12">
-                                        <a href="#" class="btn-link text-primary font-weight-bold fs-14 p-b-5">{{ $survey->name }}</a>
+                                        <a href="{{ url("/survey/" . $survey->id ) }}" class="btn-link text-primary font-weight-bold fs-14 p-b-5">{{ $survey->name }}</a>
                                         <p class="fs-12 p-t-5">Created {{ date('d, M y H:i', strtotime($survey->created_at)) }}</p>
                                     </td>
                                     <td class="text-center p-l-5 p-r-5 p-t-40">{{ date('d, M y H:i', strtotime($survey->updated_at)) }}</td>
@@ -73,23 +73,30 @@
                                                 title="Share Your Survey"><span class="p-t-20 p-b-20"><i class="fa fa-share-alt fs-15"></i></span></button>
                                     </td>
                                     <td class="padding-20 p-t-35">
-                                        <button class="btn btn-default no-border w-100" type="button" data-toggle="tooltip" data-placement="bottom" data-html="true"
+                                        <button onclick="deleteSurvey({{$survey->id}})" class="btn btn-default no-border w-100" type="button" data-toggle="tooltip" data-placement="bottom" data-html="true"
                                                 title="Delete Entire Survey"><span class="p-t-20 p-b-20"><i class="fa fa-trash fs-15"></i></span></button>
                                     </td>
                                 </tr>
                                 @endforeach
+                                @if(count($surveys) < 1)
+                                    <tr>
+                                        <td class="p-l-20 p-t-25 p-r-10 fs-12" colspan="7">
+                                            <p class="fs-12">Ther is no survey for this user</p>
+                                        </td>
+                                    </tr>
+                                @endif
                             </table>
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <div class="panel-whitesmoke text-right">
-                            <a href="{{ url('survey/create') }}" class="btn btn-primary btn-md bold all-caps fs-13 pull-left"><i class="fa fa-plus"></i> Create Survey</a>
-                            <div class="clearfix"></div>
+                        <div class="panel-whitesmoke text-right special-footer">
+                            <a onclick="createSurvey()" class="btn btn-primary btn-md bold all-caps fs-13 pull-left text-white"><i class="fa fa-plus"></i> Create Survey</a>
+                            <div class="clearfix">{{ $surveys->links() }}</div>
                         </div>
                     </div>
 
                     <div class="col-lg-12 fs-14 p-t-20 text-right">
-                        All Surveys: 4 of 4
+                        All Surveys: {{ $surveys->lastItem() }} of {{ $surveys->total() }}
                     </div>
                 </div>
 
@@ -98,15 +105,81 @@
         </div>
 
     </div>
+
+    <input type="hidden" value="{{ url("/") }}" id="datbaseurl"/>
+    @include('templates.admin.pages.survey.components.dialog.create_survey')
+    @include('templates.admin.pages.survey.components.dialog.delete_survey')
 @endsection
 
 
 @push("script")
     <script>
+        var url_base = $('#datbaseurl').val();
+
         function dropdownChange(str, obj, v) {
             $(obj).parents(".dropdown-menu").find("i.fa-check").remove();
             $(obj).find("h3").html(v + " <i class=\"fa fa-check fs-10\"></i>");
             $("#dropdown-button").html(str);
+        }
+
+        function deleteSurvey(id) {
+            $('#selectedSurveyIdDelete').val(id);
+            $('#modalStickUpDeleteSurvey').modal('show');
+        }
+
+        function createSurvey() {
+            $('#modalStickUpCreateSurvey').modal('show');
+        }
+
+        function saveSurvey(user) {
+            if($('#selectedSurveyName').val() !== "") {
+                $('#modalStickUpCreateSurvey').modal('hide');
+
+                var data = {
+                    "user": user,
+                    "name": $('#selectedSurveyName').val(),
+                    "description": $('#selectedSurveyDescription').val()
+                };
+
+                $.ajax({
+                    type:'POST',
+                    url: url_base + "/api/v1/survey/create",
+                    contentType: 'application/json; charset=utf-8',
+                    mimeType:"multipart/form-data",
+                    data: JSON.stringify(data),
+                    cache: false,
+                    processData:false,
+                    success: function(json) {
+                        var data = JSON.parse(json);
+                        console.log(data.data);
+                        window.location.replace(url_base + "/survey/" + data.data.id + "/edit");
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log("failed to update survey detail");
+                    }
+                });
+            }
+        }
+
+        function dropSurvey() {
+            if($('#selectedSurveyIdDelete').val() !== "") {
+                $('#modalStickUpDeleteSurvey').modal('hide');
+                var id = $('#selectedSurveyIdDelete').val();
+                $.ajax({
+                    type:'POST',
+                    url: url_base + "/api/v1/survey/" + id + "/delete",
+                    contentType: 'application/json; charset=utf-8',
+                    mimeType:"multipart/form-data",
+                    cache: false,
+                    processData:false,
+                    success: function(json) {
+                        $('#selecRow' + id).remove();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log("failed to update survey detail");
+                    }
+                });
+            }
         }
     </script>
 @endpush

@@ -26,7 +26,7 @@ class Survey extends Model
      * @var array
      */
     protected $fillable = [
-        "user", "name", "description", "open_time", "close_time", "public"
+        "user", "name", "description", "open_time", "close_time", "public", "required_asterik", "logo", "question_number"
     ];
 
     public function pages() {

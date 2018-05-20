@@ -21,6 +21,9 @@ class CreateSurveysTable extends Migration
             $table->string('description')->nullable();
             $table->dateTime('open_time')->useCurrent();
             $table->dateTime('close_time')->nullable();
+            $table->boolean('required_asterik')->default(true);
+            $table->boolean('question_number')->default(true);
+            $table->string('logo')->nullable();
             $table->boolean('public')->default(true);
             $table->timestamps();
         });

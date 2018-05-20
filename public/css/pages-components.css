@@ -199,6 +199,7 @@ a.text-link {
 
 .card-question.card-button {
     border: 1px solid #ededed;
+    border-top: 0;
     color: #000 !important;
 }
 
@@ -210,8 +211,20 @@ a.text-link {
     margin-top: 25px;
 }
 
+.card-adding {
+    border: dashed 1px #ededed;
+    margin-top: 25px;
+}
+
+.card-button .btn-flat {
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+    border-radius: 0 !important;
+}
+
 .card .card-button .question {
     font-size: 16px !important;
+    padding-right: 70px;
 }
 
 .card .card-button .answer * {
@@ -219,6 +232,11 @@ a.text-link {
 }
 
 .answer textarea.form-control.text {
+    max-height: 250px;
+    min-height: 80px;
+}
+
+textarea.form-control.text {
     max-height: 250px;
     min-height: 80px;
 }
@@ -283,7 +301,7 @@ a.text-link {
     background-size: 60px 60px;
     background-position: 0 0, 30px 30px;
 }
-.dd-dragel { position: absolute; pointer-events: none; z-index: 9999; }
+.dd-dragel { position: absolute; pointer-events: none; z-index: 99; }
 .dd-dragel > .dd-item .dd-handle { margin-top: 0; }
 .dd-dragel .dd-handle {
     -webkit-box-shadow: 2px 4px 6px 0 rgba(0,0,0,.1);
@@ -296,11 +314,59 @@ a.text-link {
     bottom: 0;
     top: 0;
     position: absolute;
-    z-index: 9999;
+    z-index: 99;
     background: #ffffff66;
     transition: .3s all;
 }
 
 .select2-results li {
     white-space: pre !important;
+}
+
+.select2-dropdown {
+    z-index: 9999 !important;
+}
+
+.modal-body.whitsmoke {
+    background: #f2f2f2 !important;
+}
+
+.special-footer .pagination {
+    float: right;
+    margin-top: 5px;
+}
+
+.special-footer .pagination .page-item span,
+.special-footer .pagination .page-item a {
+    font-size: 10px;
+    background: #6D777E;
+    color: #fff;
+    border: none
+}
+
+.special-footer .pagination .page-item.active span {
+    font-size: 10px;
+    background: #FFF;
+    color: #101010;
+    border: none
+}
+
+.checkbox {
+    margin-bottom: -5px !important;
+    margin-top: -5px !important;
+    padding-left: 0px;
+}
+
+.checkbox:last-child {
+    margin-top: -5px !important;
+    margin-bottom: 5px !important;
+    padding-left: 0px;
+}
+
+.al.list-item {
+    background: #FFF;
+    border-top: 1px solid #ededed;
+    border-top: 1px solid #ededed;
+    padding: 10px 15px;
+    font-size: 13px;
 }

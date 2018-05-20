@@ -31,8 +31,8 @@ Route::get('/user/account/detail/edit', 'UserController@detailEdit')->name('user
 Route::patch('/user/account/detail/edit', 'UserController@detailEditStore')->name('user.account.login.edit.store');
 
 Route::get('/survey', 'SurveyController@index')->name('survey.index');
-Route::post('/survey/create/store', 'SurveyController@store')->name('survey.store');
 Route::get('/survey/{id}/edit', 'SurveyController@edit')->name('survey.edit');
+Route::get('/survey/{id}', 'SurveyController@show')->name('survey.show');
 
 Route::get('/request-service', 'RequestServiceController@index')->name('request-service.index');
 Route::get('/request-service/create', 'RequestServiceController@create')->name('request-service.create');

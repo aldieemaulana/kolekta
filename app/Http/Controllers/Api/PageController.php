@@ -68,4 +68,50 @@ class PageController extends Controller
 
         return response()->json($data, 200);
     }
+
+    /**
+     * @return Question
+     */
+    public function store(Request $request)
+    {
+        $page["name"] = "P" . $request->position;
+        $page["position"] = $request->position;
+        $page["survey"] = $request->survey;
+        Paged::create($page);
+
+        $data['message'] = "Success";
+        $data['status'] = 200;
+
+        return response()->json($data, 200);
+    }
+
+    /**
+     * @return Question
+     */
+    public function removePage($id)
+    {
+        $information = Paged::findOrFail($id);
+
+        Paged::whereSurvey($information->survey)
+            ->where('position', '>', $information->position)
+            ->decrement('position');
+
+        $questions = $information->questions;
+        foreach ($questions as $question) {
+            $answers = $question->answers;
+            foreach ($answers as $answer) {
+                $answer->logics()->delete();
+            }
+
+            $question->answers()->delete();
+        }
+
+        $information->questions()->delete();
+        $information->delete();
+
+        $data['message'] = "Success";
+        $data['status'] = 200;
+
+        return response()->json($data, 200);
+    }
 }

@@ -16,6 +16,11 @@ class Question extends Model
         return $this->hasMany("Kolekta\Answer", "question", "id")->orderBy('position');
     }
 
+
+    public function answer() {
+        return $this->hasOne("Kolekta\Answer", "question", "id")->orderBy('position');
+    }
+
     public function typed() {
         return $this->hasOne("Kolekta\Type", "id", "type");
     }

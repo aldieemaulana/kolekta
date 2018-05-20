@@ -13914,7 +13914,7 @@ Main components
     position: absolute;
     right: 0;
     top: 60px;
-    z-index: 9999;
+    z-index: 99;
     display: none;
     border-radius: 10px;
   }
@@ -14044,7 +14044,7 @@ Main components
     position: absolute;
     right: 0;
     top: 60px;
-    z-index: 9999;
+    z-index: 99;
     display: none;
     border-radius: 10px;
   }
@@ -14290,7 +14290,7 @@ Main components
     position: absolute;
     right: 0;
     top: 60px;
-    z-index: 9999;
+    z-index: 99;
     display: none;
     border-radius: 10px;
   }
